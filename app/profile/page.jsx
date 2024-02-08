@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 
 const page = () => {
@@ -11,7 +11,19 @@ const page = () => {
   const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
-  const handleDelete = (post) => {};
+  const handleDelete = (post) => {
+    const hasConfirmed = confirm("Are you sure you want to delete this post?");
+    if (hasConfirmed) {
+      try {
+        fetch(`/api/prompt/${post._id.toString()}`, {
+          method: "DELETE",
+        });
+        setPosts(posts.filter((p) => p._id !== post._id));
+      } catch (error) {
+        console.error("Error deleting post", error);
+      }
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
