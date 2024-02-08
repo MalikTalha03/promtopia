@@ -55,9 +55,9 @@ const Feed = () => {
   };
 
   return (
-    <section className="feed">
-      <form className="relative w-full flex-center">
-        <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
+      <section className="feed">
+        <form className="relative w-full flex-center">
           <input
             type="text"
             placeholder="Search for a tag or a username"
@@ -66,14 +66,17 @@ const Feed = () => {
             required
             className="search_input peer"
           />
-        </Suspense>
-      </form>
-      {searchText ? (
-        <PromptCardList data={filteredPosts} handleTagClick={handleTagClick} />
-      ) : (
-        <PromptCardList data={posts} handleTagClick={handleTagClick} />
-      )}
-    </section>
+        </form>
+        {searchText ? (
+          <PromptCardList
+            data={filteredPosts}
+            handleTagClick={handleTagClick}
+          />
+        ) : (
+          <PromptCardList data={posts} handleTagClick={handleTagClick} />
+        )}
+      </section>
+    </Suspense>
   );
 };
 
