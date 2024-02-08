@@ -34,7 +34,7 @@ const page = () => {
   }, [session?.user.id]);
   return (
     <Profile
-      name="My Profile"
+      name="My"
       desc="This is your profile"
       data={posts}
       handleDelete={handleDelete}
