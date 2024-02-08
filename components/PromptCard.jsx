@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const { data: session } = useSession();
-  const { pathname } = usePathname();
+  const pathname  = usePathname();
   const router = useRouter();
   const [copy, setCopy] = useState("");
   const handleCopy = () => {
